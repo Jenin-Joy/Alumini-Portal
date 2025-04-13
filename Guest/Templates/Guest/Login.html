@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+        }
+        h2 {
+            color: #004d40;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+        }
+        th {
+            text-align: left;
+            color: #00796b;
+            font-weight: normal;
+            font-size: 14px;
+            padding-right: 10px;
+        }
+        td {
+            text-align: left;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #00796b;
+            border-radius: 10px;
+            background-color: #f1f8f6;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #004d40;
+            background-color: #ffffff;
+            outline: none;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background-color: #004d40;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #00796b;
+        }
+        .links {
+            margin-top: 20px;
+        }
+        .links a {
+            text-decoration: none;
+            color: #004d40;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        .links a:hover {
+            color: #00796b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2>Login to Your Account</h2>
+        <form method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th>Email</th>
+                    <td><input type="text" name="txt_email" required></td>
+                </tr>
+                <tr>
+                    <th>Password</th>
+                    <td><input type="password" name="txt_password" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Login">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div class="links">
+            <a href="{% url 'Guest:CompanyReg' %}">New Company</a>
+            <a href="{% url 'Guest:AlumniReg' %}">New Alumni</a>
+            
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Requests</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --success-color: #4cc9f0;
+            --danger-color: #f72585;
+            --warning-color: #f8961e;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --border-color: #dee2e6;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .header i {
+            font-size: 28px;
+        }
+        
+        .workshop-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .workshop-table thead th {
+            background-color: #f1f3f9;
+            color: #495057;
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .workshop-table tbody td {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+        
+        .workshop-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .workshop-table tbody tr:hover {
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+        
+        .workshop-photo {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-accepted {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-rejected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .rating-link {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 4px 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        
+        .rating-link:hover {
+            background-color: #3a56d4;
+            transform: translateY(-1px);
+        }
+        
+        .description {
+            max-width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 0;
+            }
+            
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .workshop-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .workshop-table th, 
+            .workshop-table td {
+                padding: 12px 15px;
+            }
+            
+            .workshop-photo {
+                width: 80px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1> Workshop Requests</h1>
+        </div>
+        
+        <table class="workshop-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Photo</th>
+                    <th>Date</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in workshop %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.workshop.workshop_name}}</td>
+                    <td class="description" title="{{i.workshop.workshop_description}}">
+                        {{i.workshop.workshop_description}}
+                    </td>
+                    <td>
+                        <img src="{{ i.workshop.workshop_photo.url }}" class="workshop-photo" alt="Workshop Photo">
+                    </td>
+                    <td>{{ i.request_date }}</td>
+                    <td>{{ i.workshop.company.company_name }}</td>
+                    <td>
+                        {% if i.request_status == 1 %}
+                            <span class="status status-accepted">Accepted</span>
+                            <a href="{% url 'Alumni:rating' i.workshop.company.id %}" class="rating-link">
+                                <i class="fas fa-star"></i> Rate
+                            </a>
+                        {% elif i.request_status == 2 %}
+                            <span class="status status-rejected">Rejected</span>
+                        {% else %}
+                            <span class="status status-pending">Pending</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

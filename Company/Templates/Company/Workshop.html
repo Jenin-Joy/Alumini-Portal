@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop</title>
+</head>
+<body>
+    <form  enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <table border="1">
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" name="name" id="name"></td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td><textarea name="description" id="description"></textarea></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td><input type="file" name="file_photo"/></td>
+                
+            </tr>
+            <tr align="center">
+                <td colspan="2"><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+        <table border="1">
+            <tr>
+                <td>SL NO</td>
+                <td>Name</td>
+                <td>Description</td>
+                <td>Photo</td>
+                <td>Action</td>
+            </tr>
+        {%for i in work %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.workshop_name}}</td>
+            <td>{{i.workshop_description}}</td>
+            <td><img src="{{i.workshop_photo.url}}" width="200px" alt=""></td>
+            <td><a href="{% url 'Company:Viewrequest' i.id %}">Viewrequest</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+</body>
+</html>
+            

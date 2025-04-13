@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Action</td>
+        </tr>
+        {% for i in friend %}        
+        <tr>            
+            <td>{{forloop.counter}}</td>
+            <td>{{i.user.user_name}}</td>
+            <td>
+                {% if i.request_status == 1 %}
+                    Accepted | <a href="{% url 'Alumni:chatpage' i.user.id %}">Chat</a>
+                {% else %}
+                    <a href="{% url 'Alumni:acceptfriendrequest' i.id %}">Accept</a></td>            
+                {% endif %}
+        </tr>
+        {% endfor %}                
+    </table>
+</body>
+</html>

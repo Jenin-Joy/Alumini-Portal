@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <h3>New Student</h3>
+        <table border="1">
+            
+            <tr>
+                <td>sl</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Address</td>
+                <td>Photo</td>
+                <td>Contact</td>
+                <td>Action</td>
+            </tr>
+            {% for i in result %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.student_name}}</td>
+                <td>{{i.student_email}}</td>
+                <td>{{i.student_address}}</td>
+                <td>{{i.student_photo}}</td>
+                <td>{{i.student_contact}}</td>
+                 <td><a href="{% url 'Admin:studentdelete' i.id %}">Delete</a><br><br>
+                    </td>
+                </tr>
+                {% endfor %}
+    
+            </table>
+        </form>
+    
+       
+    </body>

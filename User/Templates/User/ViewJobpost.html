@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Job Post</title>
+</head>
+<body>
+    <table border="1" cellpadding="10">
+        <tr>
+            <td>#</td>
+            <td>Job Title</td>
+            <td>Job Description</td>
+            <td>Company</td>
+            <td>Email</td>
+            <td>Address</td>
+            <td>Action</td>
+        </tr>
+        {% for i in job %}        
+        <tr>            
+            <td>{{forloop.counter}}</td>
+            <td>{{i.job_title}}</td>            
+            <td>{{i.job_description}}</td>            
+            <td>{{i.company.company_name}}</td>            
+            <td>{{i.company.company_email}}</td>            
+            <td>{{i.company.company_address}}</td>            
+            <td>                
+                <a href="{% url 'User:requestjob' i.id %}">Apply</a>         
+            </td>            
+        </tr>
+        {% endfor %}                
+    </table>
+
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+        window.location = "{% url 'User:Viewjobpost' %}"
+    </script>
+    {% endif %}
+</body>
+</html>

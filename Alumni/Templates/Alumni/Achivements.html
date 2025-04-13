@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achivements</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">        
+        {% csrf_token %}            
+        <table border="1">            
+            <tr>                
+                <td>Achivement Title</td>                
+                <td><input type="text" name="achivement_title" id="achivement_title"></td>                
+            </tr>            
+            <tr>                
+                <td>Achivement Description</td>                
+                <td><textarea name="achivement_description" id="achivement_description"></textarea></td>                
+            </tr>            
+            <tr>                
+                <td>Achivement Photo</td>                
+                <td><input type="file" name="achivement_photo" id="achivement_photo"></td>                
+            </tr>            
+            <tr>                
+                <td colspan="2" align="center"><input type="submit" value="Submit"></td>                
+            </tr>            
+        </table>
+    </form>
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <td>#</td>
+            <td>Title</td>
+            <td>Description</td>
+            <td>Photo</td>
+            <td>Action</td>
+        </tr>
+        {% for i in achivements %}        
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.achivement_title}}</td>
+            <td>{{i.achivement_description}}</td>            
+            <td><img src="{{i.achivement_photo.url}}" width="200px" alt=""></td>            
+            <td><a href="{% url 'Alumni:delachivement' i.id %}">Delete</a></td>            
+        </tr>
+        {% endfor %}                
+    </table>
+</body>
+</html>

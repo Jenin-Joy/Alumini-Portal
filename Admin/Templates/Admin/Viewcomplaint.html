@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <h3>ViewComplaints</h3>
+        <table border="1">
+            
+            <tr>
+                <td>sl</td>
+                <td>Content</td>
+                <td>AlumniName</td>
+                <td>Date</td>
+               
+               
+              <td><a href="{% url 'Admin:areply' i.id %}">Reply</a></td> 
+            </tr>
+        </table> </form></body></html>

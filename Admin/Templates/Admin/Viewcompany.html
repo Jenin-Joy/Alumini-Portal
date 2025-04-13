@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <h3>New Company</h3>
+        <table border="1">
+            
+            <tr>
+                <td>sl</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Address</td>
+                <td>District</td>
+                <td>Place</td>
+                <td>Logo</td>
+                <td>Contact</td>
+                <td>Action</td>
+            </tr>
+            {% for i in result %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.company_name}}</td>
+                <td>{{i.company_email}}</td>
+                <td>{{i.company_address}}</td>
+                <td>{{i.company_district}}</td>
+                <td>{{i.company_place}}</td>
+                <td>{{i.company_logo}}</td>
+                <td>{{i.company_contact}}</td>
+                
+                 <td><a href="{% url 'Admin:companyaccept' i.id %}">Accept</a><br><br>
+                    <a href="{% url 'Admin:companyreject' i.id %}">Reject</a><br><br></td> 
+            </tr>
+            {% endfor %}
+
+        </table>
+<h3>Accpeted</h3>
+
+        <table border="1">
+            
+            <tr>
+                <td>sl</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Address</td>
+                <td>District</td>
+                <td>Place</td>
+                <td>Logo</td>
+                <td>Contact</td>
+                <td>Action</td>
+            </tr>
+            {% for i in result %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.company_name}}</td>
+                <td>{{i.company_email}}</td>
+                <td>{{i.company_address}}</td>
+                <td>{{i.company_district}}</td>
+                <td>{{i.company_place}}</td>
+                <td>{{i.company_logo}}</td>
+                <td>{{i.company_contact}}</td>
+                
+                <td><img src="{{ i.company_photo.url }}" alt="company photo"
+                    style="width:100px;height: auto;"></td>
+                    <td><a href="{% url 'Admin:companyreject' i.id %}">Reject</a><br><br></td> 
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        <h3>Rejected</h3>
+
+        <table border="1">
+            
+            <tr>
+                <td>sl</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Address</td>
+                <td>District</td>
+                <td>Place</td>
+                <td>Logo</td>
+                <td>Contact</td>
+                <td>Action</td>
+            </tr>
+            {% for i in reject %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.company_name}}</td>
+                <td>{{i.company_email}}</td>
+                <td>{{i.company_address}}</td>
+                <td>{{i.company_district}}</td>
+                <td>{{i.company_place}}</td>
+                <td>{{i.company_logo}}</td>
+                <td>{{i.company_contact}}</td>
+                <td><img src="{{ i.company_photo.url }}" alt="company photo"
+                    style="width:100px;height: auto;"></td>
+                 <td><a href="{% url 'Admin:companyaccept' i.id %}">Accept</a><br><br>
+                    </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </form>
+
+   
+</body>

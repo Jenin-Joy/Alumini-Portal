@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Internship Request</title>
+</head>
+<body>
+    <table border="1" cellpadding="10">        
+        <tr>            
+            <td>#</td>            
+            <td>User</td>            
+            <td>Email</td>
+            <td>Contact</td>
+            <td>Address</td>
+            <td>Action</td>            
+        </tr>        
+        {% for i in result %}        
+        <tr>            
+            <td>{{forloop.counter}}</td>            
+            <td>{{i.user.user_name}}</td>            
+            <td>{{i.user.user_email}}</td>            
+            <td>{{i.user.user_contact}}</td>            
+            <td>{{i.user.user_address}}</td>            
+            <td>                
+                {% if i.request_status == 1 %}
+                    Accepted
+                {% elif i.request_status == 2 %}
+                    Rejected
+                {% else %}
+                    <a href="{% url 'Company:requestinternshipaccept' i.id id %}">Accept</a>
+                    <a href="{% url 'Company:requestinternshipreject' i.id id %}">Reject</a>
+                {% endif %}
+            </td>            
+        </tr>
+        {% endfor %}                
+    </table>    
+</body>
+</html>

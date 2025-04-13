@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <table border="1">
+
+            <tr>
+                <td>sl</td>
+                <td>Name</td>
+                <td>Description</td>
+                <td>Photo</td>
+                <td>Date</td>
+                <td>User</td>
+                <td>Status</td>
+            </tr>
+            {% for i in result %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.workshop.workshop_name}}</td>
+                <td>{{i.workshop.workshop_description}}</td>
+                <td><img src="{{ i.workshop.workshop_photo.url }}" width="150" alt=""></td>
+                <td>{{ i.request_date }}</td>
+                <td>{{ i.alumni.alumni_name }}</td>
+
+                <td>
+                    {% if i.request_status == 1 %}
+                    Accepted
+                    {% elif i.request_status == 2 %}
+                    Rejected
+                    {% else %}
+                    <a href="{% url 'Company:requestaccept' i.id id %}">Accept</a>
+                    <a href="{% url 'Company:requestreject' i.id id %}">Reject</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </form>
+
+
+</body>

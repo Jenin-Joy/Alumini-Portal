@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <form action="" method="POST">
+         {% csrf_token %}
+         <table>
+             <tr>
+                 <td>Notification</td>
+                 <td><input type="text" name="Notification" id=""></td>
+             </tr>
+             <tr>
+                 <td><input type="submit" value="submit"></td>
+                 <td></td>
+             </tr>
+         </table>
+        </form> 
+        <table border="1">
+         <tr>
+            <td></td>
+             <td>Notification</td>
+             <td>Action</td>
+         </tr>
+         {% for noti in notification %}
+         <tr>
+             <td>{{forloop.counter}}</td>
+             <td>{{noti.notification_content}}</td>
+             <td><a href="{% url 'Admin:delnotification' noti.id %}">Delete</a><br></td>
+         </tr>
+         {% endfor %}
+        </table>
+        
+</body>
+</html>

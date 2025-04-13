@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #fff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+            height: fit-content;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4A90E2;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-spacing: 15px;
+        }
+
+        td {
+            font-size: 16px;
+            padding: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="contact"],
+        input[type="password"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background-color: #4A90E2;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #357ABD;
+        }
+
+        select,
+        input[type="file"] {
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-container .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #4A90E2;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Registration Form</h1>
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea name="address" id="address" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Contact:</label>
+                <input type="contact" name="contact" id="contact" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="file_photo">Photo:</label>
+                <input type="file" name="file_photo" id="file_photo">
+            </div>
+
+            <div class="form-group">
+                <label for="file_logo">Logo:</label>
+                <input type="file" name="file_logo" id="file_logo">
+            </div>
+
+            <div class="form-group">
+                <label for="sel_district">District:</label>
+                <select name="sel_district" id="sel_district" required>
+                    <option value="">---Select District---</option>
+                    {% for i in result %}
+                        <option value="{{i.id}}">{{i.district_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sel_place">Place:</label>
+                <select name="sel_place" id="sel_place" required>
+                    <option value="">---Select Place---</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Register">
+            </div>
+        </form>
+        <div class="footer">
+            <p>Already have an account?  <a href="{% url 'Guest:login' %}">Login Here</a><br></p>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $("#sel_district").change(function () {
+            var did = $(this).val();
+            var ur = "{% url 'Guest:ajaxplace' %}";
+            $.ajax({
+                url: ur,
+                data: { did: did },
+                success: function (data) {
+                    $("#sel_place").html(data);
+                },
+            });
+        });
+    </script>
+
+</body>
+</html>

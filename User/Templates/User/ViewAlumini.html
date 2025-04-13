@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Alumni</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            overflow: hidden;
+            padding: 20px;
+        }
+        .card-header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .card-header img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 4px solid #007bff;
+            margin-bottom: 10px;
+        }
+        .card-header h2 {
+            margin: 10px 0 5px;
+            color: #333;
+            font-size: 24px;
+        }
+        .card-header p {
+            margin: 0;
+            color: #666;
+            font-size: 16px;
+        }
+        .card-body {
+            padding: 20px 0;
+        }
+        .card-body h3 {
+            margin: 0 0 15px;
+            color: #007bff;
+            font-size: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fafafa;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #007bff;
+            color: white;
+            font-weight: 600;
+        }
+        td img {
+            border-radius: 8px;
+            width: 100px;
+            height: auto;
+            object-fit: cover;
+        }
+        tr:hover {
+            background: #f1f1f1;
+        }
+        @media (max-width: 600px) {
+            .card {
+                padding: 15px;
+            }
+            .card-header img {
+                width: 120px;
+                height: 120px;
+            }
+            td img {
+                width: 80px;
+            }
+            th, td {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+        .friend-request-link {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+        }
+
+        .friend-request-link:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        .friend-request-link:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    {% for alumni in alumini %}
+    <div class="card">
+        <div class="card-header">
+            <img src="{{alumni.alumni_photo.url}}" alt="Alumni Photo">
+            <h2>{{alumni.alumni_name}}</h2>
+            <p>{{alumni.alumni_email}}</p>
+            <p><a href="{% url 'User:friendrequest' alumni.id %}" class="friend-request-link">Friend Request</a></p>
+        </div>
+        <div class="card-body">
+            <h3>Achievements</h3>
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Photo</th>
+                </tr>
+                {% for j in alumni.tbl_achivements_set.all %}
+                <tr>
+                    <td>{{j.achivement_title}}</td>
+                    <td>{{j.achivement_description}}</td>
+                    <td><img src="{{j.achivement_photo.url}}" alt="Achievement Photo"></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+        window.location = "{% url 'User:ViewAlumini' %}"
+    </script>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">        
+        {% csrf_token %}            
+        <table border="1">            
+            <tr>
+                <td>Internship Title</td>
+                <td><input type="text" name="internship_title" id="internship_title"></td>
+            </tr>
+            <tr>
+                <td>Internship Description</td>                
+                <td><textarea name="internship_description" id="internship_description"></textarea></td>                
+            </tr>
+            <tr>
+                <td>Internship Photo</td>
+                <td><input type="file" name="internship_photo" id="internship_photo"></td>
+            </tr>            
+            <tr>                
+                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+            </tr>            
+        </table>
+    </form>
+
+    <table>
+        <tr>
+            <td>#</td>
+            <td>Internship Title</td>            
+            <td>Internship Description</td>            
+            <td>Internship Photo</td>            
+            <td>Action</td>            
+        </tr>
+        {% for i in internship %}        
+        <tr>            
+            <td>{{forloop.counter}}</td>            
+            <td>{{i.internship_title}}</td>            
+            <td>{{i.internship_description}}</td>            
+            <td><img src="{{i.internship_photo.url}}" width="200px" alt=""></td>            
+            <td>
+                <a href="{% url 'Company:delinternship' i.id %}">Delete</a>
+                <a href="{% url 'Company:Viewinternshiprequest' i.id %}">Viewrequest</a>
+            </td>            
+        </tr>
+        {% endfor %}                
+    </table>
+</body>
+</html>

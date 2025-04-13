@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+            --hover-color: #f0f2ff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7ff;
+            margin: 0;
+            padding: 20px;
+            color: var(--text-color);
+        }
+        
+        .notification-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .notification-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 18px 25px;
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .notification-header i {
+            margin-right: 12px;
+            font-size: 22px;
+        }
+        
+        .notification-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .notification-table thead {
+            background-color: var(--secondary-color);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .notification-table th {
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .notification-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .notification-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .notification-table tr:hover {
+            background-color: var(--hover-color);
+        }
+        
+        .notification-badge {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .notification-content {
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 600px) {
+            .notification-container {
+                border-radius: 0;
+            }
+            
+            .notification-table th, 
+            .notification-table td {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <div class="notification-container">
+            <div class="notification-header">
+                <i class="fas fa-bell"></i>
+                Notifications
+            </div>
+            <table class="notification-table">
+                <thead>
+                    <tr>
+                        <th style="width: 60px;"></th>
+                        <th>Notification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for noti in notification %}
+                    <tr>
+                        <td>
+                            <span class="notification-badge">{{ forloop.counter }}</span>
+                        </td>
+                        <td class="notification-content">
+                            {{ noti.notification_content }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </form>
+</body>
+</html>

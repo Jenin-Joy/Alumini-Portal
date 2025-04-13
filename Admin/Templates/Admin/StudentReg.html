@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Student Registration</h2>
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" required>
+            
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+            
+            <label for="address">Address</label>
+            <textarea name="address" id="address" required></textarea>
+            
+            <label for="contact">Contact</label>
+            <input type="text" name="contact" id="contact" required>
+            
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required>
+            
+            <label for="file_photo">Photo</label>
+            <input type="file" name="file_photo" id="file_photo" accept="image/*">
+            
+            <label for="Batchid">Batch ID</label>
+            <select name="Batchid" id="Batchid" required>
+                <option>---SELECT---</option>
+                {% for bat in batch %}
+                <option value="{{bat.id}}">{{bat.batch_name}}</option>
+                {% endfor %}
+            </select>
+            
+            <input type="submit" value="Submit">
+        </form>
+        <div class="footer">
+            <p>Already have an account?  <a href="{% url 'Guest:login' %}">Login Here</a><br></p>
+        </div>
+    </div>
+
+</body>
+</html>

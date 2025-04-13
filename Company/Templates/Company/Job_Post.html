@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Post</title>
+</head>
+<body>
+    <form action="" method="post">
+        {%  csrf_token %}
+        <table border="1">
+            <tr>
+                <td>Job Title</td>
+                <td><input type="text" name="job_title" id="job_title" value="{{editjob.job_title}}"></td>
+            </tr>
+            <tr>
+                <td>Job Description</td>
+                <td><textarea name="job_description" id="job_description">{{editjob.job_description}}</textarea></td>                
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+
+    <table border="1">        
+        <tr>
+            <td>#</td>
+            <td>Job Title</td>
+            <td>Job Description</td>
+            <td>Action</td>
+        </tr>
+        {% for i in job %}
+        <tr>            
+            <td>{{forloop.counter}}</td>
+            <td>{{i.job_title}}</td>  
+            <td>{{i.job_description}}</td>  
+            <td>
+                <a href="{% url 'Company:deljob' i.id %}">Delete</a>                
+                <a href="{% url 'Company:editjob' i.id %}">Edit</a>                
+                <a href="{% url 'Company:Viewjobrequest' i.id %}">Viewrequest</a></td>            
+        </tr>
+        {% endfor %}        
+    </table>
+</body>
+</html>
