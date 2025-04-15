@@ -16,7 +16,7 @@
         <tr>            
             <td>{{forloop.counter}}</td>
             <td>{{i.alumini.alumni_name}}</td>
-            <td><a href="{% url 'User:chatpage' i.alumini.id %}">Chat</a></td>
+            <td><a href="{% url 'Student:chatpage' i.alumini.id %}">Chat</a></td>
         </tr>
         {% endfor %}                
     </table>

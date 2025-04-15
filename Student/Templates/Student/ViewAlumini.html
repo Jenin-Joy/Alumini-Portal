@@ -129,7 +129,7 @@
             <img src="{{alumni.alumni_photo.url}}" alt="Alumni Photo">
             <h2>{{alumni.alumni_name}}</h2>
             <p>{{alumni.alumni_email}}</p>
-            <p><a href="{% url 'User:friendrequest' alumni.id %}" class="friend-request-link">Friend Request</a></p>
+            <p><a href="{% url 'Student:friendrequest' alumni.id %}" class="friend-request-link">Friend Request</a></p>
         </div>
         <div class="card-body">
             <h3>Achievements</h3>
@@ -153,7 +153,7 @@
     {% if msg %}
     <script>
         alert("{{msg}}")
-        window.location = "{% url 'User:ViewAlumini' %}"
+        window.location = "{% url 'Student:ViewAlumini' %}"
     </script>
     {% endif %}
 </body>

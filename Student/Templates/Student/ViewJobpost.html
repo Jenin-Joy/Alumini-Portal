@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Internship</title>
+    <title>View Job Post</title>
 </head>
 <body>
     <table border="1" cellpadding="10">
         <tr>
             <td>#</td>
-            <td>Internship Title</td>
-            <td>Internship Description</td>
+            <td>Job Title</td>
+            <td>Job Description</td>
             <td>Company</td>
             <td>Email</td>
             <td>Address</td>
             <td>Action</td>
         </tr>
-        {% for i in internship %}        
+        {% for i in job %}        
         <tr>            
             <td>{{forloop.counter}}</td>
-            <td>{{i.internship_title}}</td>            
-            <td>{{i.internship_description}}</td>            
+            <td>{{i.job_title}}</td>            
+            <td>{{i.job_description}}</td>            
             <td>{{i.company.company_name}}</td>            
             <td>{{i.company.company_email}}</td>            
             <td>{{i.company.company_address}}</td>            
             <td>                
-                <a href="{% url 'User:requestinternship' i.id %}">Apply</a>  
-            </td>                
+                <a href="{% url 'Student:requestjob' i.id %}">Apply</a>         
+            </td>            
         </tr>
         {% endfor %}                
     </table>
@@ -34,7 +34,7 @@
     {% if msg %}
     <script>
         alert("{{msg}}")
-        window.location = "{% url 'User:Viewinternship' %}"
+        window.location = "{% url 'Student:Viewjobpost' %}"
     </script>
     {% endif %}
 </body>

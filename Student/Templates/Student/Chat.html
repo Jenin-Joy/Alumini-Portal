@@ -354,7 +354,7 @@
             fd.append("file",file)
             fd.append("tid",tid)
             fd.append("msg",msg)
-            var ur = "{% url 'User:ajaxchat' %}"
+            var ur = "{% url 'Student:ajaxchat' %}"
             var csrftoken = getCookie('csrftoken');
             $.ajax({
                 type:'POST',
@@ -377,7 +377,7 @@
 
     function viewChat() {
         var id = document.getElementById("txt_id").value
-        var ur = "{% url 'User:ajaxchatview' %}"
+        var ur = "{% url 'Student:ajaxchatview' %}"
         $.ajax({
             url: ur,
             data: { tid: id, },
@@ -401,7 +401,7 @@
 
     function clearchat() {
         var id = document.getElementById("txt_id").value
-        var ur = "{% url 'User:clearchat' %}"
+        var ur = "{% url 'Student:clearchat' %}"
         document.getElementById("b-page").style.display = "block"
         $.ajax({
             url: ur,

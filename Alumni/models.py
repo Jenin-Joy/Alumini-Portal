@@ -14,7 +14,7 @@ class tbl_request(models.Model):
     jobpost = models.ForeignKey(tbl_jobpost, on_delete=models.CASCADE, null=True)
     internship = models.ForeignKey(tbl_internship, on_delete=models.CASCADE, null=True)
     alumni = models.ForeignKey(tbl_alumni, on_delete=models.CASCADE, null=True)
-    user = models.ForeignKey(tbl_user, on_delete=models.CASCADE, null=True)
+    student = models.ForeignKey(tbl_student, on_delete=models.CASCADE, null=True)
     request_status=models.IntegerField(default=0)
 
 class tbl_rating(models.Model):
